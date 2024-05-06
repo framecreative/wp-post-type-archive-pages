@@ -25,10 +25,15 @@ class PTAP_Permalinks {
 
         $args['has_archive'] = true;
 
-        $args['rewrite'] = [
-            'slug' =>           $archiveRoute,
-            'with_front' =>     false
-        ];
+        $add_rewrite = apply_filters( 'post_type_archive_pages/add_rewrite', true, $name );
+        $add_rewrite = apply_filters( 'post_type_archive_pages/add_rewrite_' . $name, $add_rewrite, $name );
+
+        if ($add_rewrite) {
+            $args['rewrite'] = [
+                'slug' =>           $archiveRoute,
+                'with_front' =>     false
+            ];
+        }
 
         return $args;
 
